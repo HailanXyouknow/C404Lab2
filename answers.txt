@@ -6,7 +6,7 @@ Question 2: What is the difference between a client socket and a server socket i
 
     A server socket needs to be listening at all times in order to receive messages from clients, 
     while a client socket only needs to be open when sending or receiving messages from a server.
-    A server socket cat also set the max number of clients it wants to communicate through 
+    A server socket can also set the max number of clients it wants to communicate through 
     socket.listen(num_of_connections) before it refuse any incoming connections.
 
 Question 3: How do we instruct the OS to let us reuse the same bind port?
