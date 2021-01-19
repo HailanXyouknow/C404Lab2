@@ -54,7 +54,7 @@ def connect(address):
             if not data:
                 break
             full_data += data
-        print(f'Response: \n{full_data}')
+        print(f'\nResponse: \n{full_data}')
     except Exception as e:
         print(f'Error: {e}')
     finally:
