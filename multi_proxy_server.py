@@ -1,21 +1,12 @@
 #!/usr/bin/env python3
+# This script will time out in 30 seconds to avoid hanging
+# Related file: proxy_client.py
+
 import socket
 
 HOST = '' # reachable by any address the machine happens to have
 PORT = 8001
 BUFFER_SIZE = 1024
-
-# create a tcp socket
-def create_tcp_socket():
-    print('Creating socket')
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    except(socket.error, msg):
-        print(f'Failed to create socket.')
-        print('Error: {msg}')
-        sys.exit()
-    print('Socket created successfully')
-    return s
 
 #get host info
 def get_remote_ip(host):
@@ -45,9 +36,10 @@ def main():
     buffer_size = 4096
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(30)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((HOST, PORT))
-        s.listen(5) # maximum number of queued connections
+        s.listen(2) # maximum number of queued connections
 
         while True:
             # Get incoming data
@@ -57,16 +49,15 @@ def main():
             print(f"Data received:", full_data)
 
             # Send data to Google if received any
-            if full_data:
-                # Connect to Google
-                try:
-                    s2 = create_tcp_socket()
-                    remote_ip = get_remote_ip(url)
-                    s2.connect((remote_ip, port))
-                except Exception as e:
-                    print(f'Error: {e}')
-                send_data(s2, full_data)
-                s2.shutdown(socket.SHUT_WR)
+            # Connect to Google
+            try:
+                s2 = create_tcp_socket()
+                remote_ip = get_remote_ip(url)
+                s2.connect((remote_ip, port))
+            except Exception as e:
+                print(f'Error: {e}')
+            send_data(s2, full_data)
+            s2.shutdown(socket.SHUT_WR)
 
             # Get response from Google
             full_data = b''
