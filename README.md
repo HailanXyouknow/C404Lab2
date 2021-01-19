@@ -15,4 +15,9 @@ echo "hi" | nc localhost 8001 [-q 1]
 ./proxy_server.py 
 # In another terminal run:
 ./proxy_client.py
+
+# Forked processes in:
+./multi_echo_server.py
+./multi_proxy_server.py
+./multi_client.py
 ```

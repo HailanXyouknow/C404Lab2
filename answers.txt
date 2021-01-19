@@ -15,7 +15,7 @@ Question 3: How do we instruct the OS to let us reuse the same bind port?
 
 Question 4: What information do we get about incoming connections?
 
-    Address and the data that was sent to the server.
+    Address and the data that was sent to the server and also the process id of the program that made the request.
 
 Question 5: What is returned by recv() from the server after it is done sending the HTTP request?
   
@@ -23,4 +23,5 @@ Question 5: What is returned by recv() from the server after it is done sending 
 
 Question 6: Provide a link to your code on GitHub.
 
+    https://github.com/HailanXyouknow/C404Lab2
     
