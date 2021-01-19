@@ -7,9 +7,9 @@ import time
 HOST = '' # reachable by any address the machine happens to have
 PORT = 8001
 BUFFER_SIZE = 1024
-MAX_CONNECTIONS = 10
+MAX_CONNECTIONS = 5
 
-def echo(conn, addr):
+def echo_message(conn, addr):
     print("Connected by", addr)
     full_data = conn.recv(BUFFER_SIZE)
     print(f"Data received:", full_data)
@@ -29,12 +29,10 @@ def main():
 
         while True:
             conn, addr = s.accept()
-            p = Process(target=echo, args=(conn, addr))
+            p = Process(target=echo_message, args=(conn, addr))
             p.daemon = True
             p.start()
             print(f"Started Process {p}")
-            p.join()
-       
         
 if __name__ == "__main__":
     main()
